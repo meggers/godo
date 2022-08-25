@@ -1,4 +1,4 @@
-package main
+package godo
 
 import (
 	"fmt"
@@ -61,7 +61,7 @@ func newTodoItem(id int, line string) todoItem {
 		break
 	}
 
-	descriptionTokens := tokens[descriptionStartIndex:len(tokens)]
+	descriptionTokens := tokens[descriptionStartIndex:]
 	item.Description = strings.Join(descriptionTokens, " ")
 
 	return item

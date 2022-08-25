@@ -1,4 +1,4 @@
-module todo
+module github.com/meggers/godo
 
 go 1.19
 
