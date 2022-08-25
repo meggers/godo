@@ -2,7 +2,7 @@
 
 # Godo
 
-Godo is a simple A simple terminal UI todo app written in Go.
+Godo is a simple terminal UI todo app written in Go.
 
 ## Installation
 
