@@ -1,1 +1,1 @@
-todoFile: .\todo.txt
+todoFile: ./configs/todo.txt

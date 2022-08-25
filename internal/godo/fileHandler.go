@@ -7,7 +7,7 @@ import (
 )
 
 func ReadTodoFile(fileName string) []TodoItem {
-	file, err := os.Open(fileName)
+	file, err := os.OpenFile(fileName, os.O_CREATE&os.O_RDONLY, 0)
 	defer closeFile(file)
 	check(err)
 
