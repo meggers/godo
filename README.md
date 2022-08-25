@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/meggers/godo)](https://goreportcard.com/report/github.com/meggers/godo) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Godo
 
 Godo is a simple A simple terminal UI todo app written in Go.
