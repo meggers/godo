@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func readTodoFile(fileName string) []todoItem {
+func ReadTodoFile(fileName string) []TodoItem {
 	file, err := os.Open(fileName)
 	defer closeFile(file)
 	check(err)
@@ -14,13 +14,13 @@ func readTodoFile(fileName string) []todoItem {
 	scanner := bufio.NewScanner(file)
 
 	scanner.Split(bufio.ScanLines)
-	var todoItems []todoItem
+	var todoItems []TodoItem
 
 	lineNumber := 0
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line != "" {
-			todoItem := newTodoItem(lineNumber, scanner.Text())
+			todoItem := NewTodoItem(lineNumber, scanner.Text())
 			todoItems = append(todoItems, todoItem)
 			lineNumber++
 		}
@@ -29,7 +29,7 @@ func readTodoFile(fileName string) []todoItem {
 	return todoItems
 }
 
-func writeTodoFile(fileName string, todoItems []todoItem) {
+func WriteTodoFile(fileName string, todoItems []TodoItem) {
 	file, err := os.Create(fileName)
 	defer closeFile(file)
 	check(err)

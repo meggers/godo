@@ -12,7 +12,7 @@ const (
 	completedToken = "x"
 )
 
-type todoItem struct {
+type TodoItem struct {
 	ID             int
 	Complete       bool
 	Priority       string
@@ -21,9 +21,9 @@ type todoItem struct {
 	Description    string
 }
 
-func newTodoItem(id int, line string) todoItem {
+func NewTodoItem(id int, line string) TodoItem {
 	tokens := strings.Fields(line)
-	item := todoItem{
+	item := TodoItem{
 		ID: id,
 	}
 
@@ -67,7 +67,7 @@ func newTodoItem(id int, line string) todoItem {
 	return item
 }
 
-func (item todoItem) String() string {
+func (item TodoItem) String() string {
 	var tokens []string
 
 	if item.Complete {

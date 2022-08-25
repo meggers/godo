@@ -10,11 +10,11 @@ import (
 	"github.com/knadh/koanf/providers/file"
 )
 
-type config struct {
+type Config struct {
 	TodoFile string
 }
 
-func newConfig() *config {
+func NewConfig() *Config {
 	k := koanf.New(".")
 
 	homeDir, err := os.UserHomeDir()
@@ -27,7 +27,7 @@ func newConfig() *config {
 		log.Fatalf("error loading config: %v", err)
 	}
 
-	return &config{
+	return &Config{
 		TodoFile: k.String("todoFile"),
 	}
 }

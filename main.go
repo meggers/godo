@@ -3,6 +3,8 @@ package main
 import (
 	"strings"
 
+	"github.com/meggers/godo/internal/godo"
+
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -11,9 +13,9 @@ const commandList = "create,sort"
 
 func main() {
 	commands := strings.Split(commandList, ",")
-	config := newConfig()
+	config := godo.NewConfig()
 
-	todoItems := readTodoFile(config.TodoFile)
+	todoItems := godo.ReadTodoFile(config.TodoFile)
 
 	app := tview.NewApplication()
 	inputField := tview.NewInputField().
@@ -35,12 +37,12 @@ func main() {
 				selectedItem := list.GetCurrentItem()
 				todoItems[selectedItem].Complete = true
 				list.SetItemText(selectedItem, todoItems[selectedItem].String(), "")
-				writeTodoFile(config.TodoFile, todoItems)
+				godo.WriteTodoFile(config.TodoFile, todoItems)
 			case 'd':
 				selectedItem := list.GetCurrentItem()
 				list.RemoveItem(selectedItem)
 				todoItems = remove(todoItems, selectedItem)
-				writeTodoFile(config.TodoFile, todoItems)
+				godo.WriteTodoFile(config.TodoFile, todoItems)
 			}
 		case tcell.KeyDown:
 			if list.GetCurrentItem() == list.GetItemCount()-1 {
@@ -79,9 +81,9 @@ func main() {
 		switch key {
 		case tcell.KeyEnter:
 			inputText := inputField.GetText()
-			newItem := newTodoItem(len(todoItems), inputText)
+			newItem := godo.NewTodoItem(len(todoItems), inputText)
 			todoItems = append(todoItems, newItem)
-			writeTodoFile(config.TodoFile, todoItems)
+			godo.WriteTodoFile(config.TodoFile, todoItems)
 			list.AddItem(newItem.String(), "", 0, nil)
 			list.SetCurrentItem(list.GetItemCount() - 1)
 			inputField.SetText("")
@@ -121,6 +123,6 @@ func main() {
 	}
 }
 
-func remove(slice []todoItem, s int) []todoItem {
+func remove(slice []godo.TodoItem, s int) []godo.TodoItem {
 	return append(slice[:s], slice[s+1:]...)
 }
