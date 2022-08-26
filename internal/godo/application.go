@@ -16,7 +16,7 @@ const commandList = "create,sort"
 
 func NewApplication(config Config) Application {
 	commands := strings.Split(commandList, ",")
-	todoItems := ReadTodoFile(config.TodoFile)
+	itemStore := NewItemStore(config)
 
 	app := tview.NewApplication()
 
@@ -39,14 +39,12 @@ func NewApplication(config Config) Application {
 				app.SetFocus(inputField)
 			case 'x':
 				selectedItem := list.GetCurrentItem()
-				todoItems[selectedItem].Complete = true
-				list.SetItemText(selectedItem, todoItems[selectedItem].String(), "")
-				WriteTodoFile(config.TodoFile, todoItems)
+				itemStore.ArchiveItem(selectedItem)
+				list.RemoveItem(selectedItem)
 			case 'd':
 				selectedItem := list.GetCurrentItem()
+				itemStore.RemoveItem(selectedItem)
 				list.RemoveItem(selectedItem)
-				todoItems = remove(todoItems, selectedItem)
-				WriteTodoFile(config.TodoFile, todoItems)
 			}
 		case tcell.KeyDown:
 			if list.GetCurrentItem() == list.GetItemCount()-1 {
@@ -85,9 +83,8 @@ func NewApplication(config Config) Application {
 		switch key {
 		case tcell.KeyEnter:
 			inputText := inputField.GetText()
-			newItem := NewTodoItem(len(todoItems), inputText)
-			todoItems = append(todoItems, newItem)
-			WriteTodoFile(config.TodoFile, todoItems)
+			newItem := NewTodoItem(inputText)
+			itemStore.AddItem(newItem)
 			list.AddItem(newItem.String(), "", 0, nil)
 			list.SetCurrentItem(list.GetItemCount() - 1)
 			inputField.SetText("")
@@ -118,7 +115,7 @@ func NewApplication(config Config) Application {
 		return
 	})
 
-	for _, item := range todoItems {
+	for _, item := range itemStore.items {
 		list.AddItem(item.String(), "", 0, nil)
 	}
 

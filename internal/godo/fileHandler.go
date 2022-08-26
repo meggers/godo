@@ -7,10 +7,15 @@ import (
 	util "github.com/meggers/godo/internal"
 )
 
-func ReadTodoFile(fileName string) []TodoItem {
-	file, err := os.OpenFile(fileName, os.O_CREATE&os.O_RDONLY, 0)
+// read all todos
+// write all todos
+// append to archive
+func ReadTodoFile(fileName string) ([]TodoItem, error) {
+	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_RDONLY, 0)
 	defer closeFile(file)
-	util.CheckError(err, "failed to open todo file")
+	if err != nil {
+		return nil, err
+	}
 
 	scanner := bufio.NewScanner(file)
 
@@ -21,19 +26,21 @@ func ReadTodoFile(fileName string) []TodoItem {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line != "" {
-			todoItem := NewTodoItem(lineNumber, scanner.Text())
+			todoItem := NewTodoItem(scanner.Text())
 			todoItems = append(todoItems, todoItem)
 			lineNumber++
 		}
 	}
 
-	return todoItems
+	return todoItems, nil
 }
 
-func WriteTodoFile(fileName string, todoItems []TodoItem) {
+func WriteTodoFile(fileName string, todoItems []TodoItem) error {
 	file, err := os.Create(fileName)
 	defer closeFile(file)
-	util.CheckError(err, "failed to open todo file")
+	if err != nil {
+		return err
+	}
 
 	writer := bufio.NewWriter(file)
 
@@ -43,6 +50,25 @@ func WriteTodoFile(fileName string, todoItems []TodoItem) {
 	}
 
 	writer.Flush()
+	return nil
+}
+
+func WriteArchiveFile(fileName string, todoItems []TodoItem) error {
+	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	defer closeFile(file)
+	if err != nil {
+		return err
+	}
+
+	writer := bufio.NewWriter(file)
+
+	for _, todoItem := range todoItems {
+		_, err := writer.WriteString(todoItem.String() + "\n")
+		util.CheckError(err, "failed to write item to file")
+	}
+
+	writer.Flush()
+	return nil
 }
 
 func closeFile(f *os.File) {

@@ -13,7 +13,6 @@ const (
 )
 
 type TodoItem struct {
-	ID             int
 	Complete       bool
 	Priority       string
 	CompletionDate time.Time
@@ -21,11 +20,9 @@ type TodoItem struct {
 	Description    string
 }
 
-func NewTodoItem(id int, line string) TodoItem {
+func NewTodoItem(line string) TodoItem {
 	tokens := strings.Fields(line)
-	item := TodoItem{
-		ID: id,
-	}
+	item := TodoItem{}
 
 	var descriptionStartIndex int
 	for i, token := range tokens {

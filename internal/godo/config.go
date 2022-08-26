@@ -13,7 +13,10 @@ import (
 )
 
 type Config struct {
-	TodoFile string
+	TodoFile         string
+	EnableArchive    bool
+	ArchiveDirectory string
+	ArchiveFormat    string
 }
 
 func NewConfig() *Config {
@@ -36,6 +39,9 @@ func NewConfig() *Config {
 	}
 
 	return &Config{
-		TodoFile: k.String("todoFile"),
+		TodoFile:         k.String("todoFile"),
+		EnableArchive:    k.Bool("archive.enable"),
+		ArchiveDirectory: k.String("archive.directory"),
+		ArchiveFormat:    k.String("archive.format"),
 	}
 }

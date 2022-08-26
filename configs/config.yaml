@@ -1,1 +1,5 @@
 todoFile: ./configs/todo.txt
+archive:
+  enable: true
+  directory: ./configs/
+  format: "2006-01-02" # time format for rolling archive files. Leave blank for a constant archive.txt file.
