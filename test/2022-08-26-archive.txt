@@ -1,3 +1,4 @@
 x use test list for project tracking
 x add hotkey hints
 x flesh out readme
+x fix bug when todo list is empty

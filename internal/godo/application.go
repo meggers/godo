@@ -51,10 +51,16 @@ func NewApplication(config Config) Application {
 				selectedItem := list.GetCurrentItem()
 				itemStore.ArchiveItem(selectedItem)
 				list.RemoveItem(selectedItem)
+				if list.GetItemCount() == 0 {
+					app.SetFocus(inputField)
+				}
 			case 'd':
 				selectedItem := list.GetCurrentItem()
 				itemStore.RemoveItem(selectedItem)
 				list.RemoveItem(selectedItem)
+				if list.GetItemCount() == 0 {
+					app.SetFocus(inputField)
+				}
 			case 'n':
 				app.SetFocus(inputField)
 			}
