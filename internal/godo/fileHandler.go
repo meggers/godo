@@ -7,9 +7,6 @@ import (
 	util "github.com/meggers/godo/internal"
 )
 
-// read all todos
-// write all todos
-// append to archive
 func ReadTodoFile(fileName string) ([]TodoItem, error) {
 	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_RDONLY, 0)
 	defer closeFile(file)
