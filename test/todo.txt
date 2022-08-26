@@ -1,5 +1,4 @@
 fix bug when todo list is empty
-add hotkey hints
 add ordering/sorting
 better test coverage
 fix duplication bug when editing existing item

@@ -1,1 +1,2 @@
 x use test list for project tracking
+x add hotkey hints

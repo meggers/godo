@@ -1,6 +1,7 @@
 package godo
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/gdamore/tcell/v2"
@@ -28,6 +29,15 @@ func NewApplication(config Config) Application {
 		SetWrapAround(false).
 		SetSelectedFocusOnly(true)
 
+	hotkeyView := tview.NewTextView().
+		SetDynamicColors(true)
+
+	fmt.Fprintln(hotkeyView, "[yellow](e)[white]   edit")
+	fmt.Fprintln(hotkeyView, "[yellow](x)[white]   complete")
+	fmt.Fprintln(hotkeyView, "[yellow](d)[white]   delete")
+	fmt.Fprintln(hotkeyView, "[yellow](n)[white]   jump to new")
+	fmt.Fprintln(hotkeyView, "[yellow](esc)[white] quit")
+
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
 		case tcell.KeyRune:
@@ -45,6 +55,8 @@ func NewApplication(config Config) Application {
 				selectedItem := list.GetCurrentItem()
 				itemStore.RemoveItem(selectedItem)
 				list.RemoveItem(selectedItem)
+			case 'n':
+				app.SetFocus(inputField)
 			}
 		case tcell.KeyDown:
 			if list.GetCurrentItem() == list.GetItemCount()-1 {
@@ -58,8 +70,9 @@ func NewApplication(config Config) Application {
 	grid := tview.NewGrid().
 		SetRows(0, 1).
 		SetBorders(true).
-		AddItem(list, 0, 0, 1, 1, 0, 0, true).
-		AddItem(inputField, 1, 0, 1, 1, 0, 0, false)
+		AddItem(list, 0, 0, 1, 5, 0, 0, false).
+		AddItem(hotkeyView, 0, 5, 1, 1, 0, 0, false).
+		AddItem(inputField, 1, 0, 1, 6, 0, 0, true)
 
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
