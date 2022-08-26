@@ -2,7 +2,6 @@ fix bug when todo list is empty
 add ordering/sorting
 better test coverage
 fix duplication bug when editing existing item
-flesh out readme
 add and flesh out user guide
 flesh out developer guide
 set terminal title
