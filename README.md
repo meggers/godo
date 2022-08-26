@@ -4,6 +4,8 @@
 
 Godo is a simple terminal UI todo app written in Go.
 
+![Godo screenshot](assets/godo.png "Godo")
+
 ## Installation
 
 todo
