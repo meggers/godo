@@ -6,5 +6,5 @@ import (
 
 func main() {
 	config := godo.NewConfig()
-
+	godo.NewApplication(*config).Run()
 }
