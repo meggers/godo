@@ -2,14 +2,15 @@ package godo
 
 import (
 	"bufio"
-	"fmt"
 	"os"
+
+	util "github.com/meggers/godo/internal"
 )
 
 func ReadTodoFile(fileName string) []TodoItem {
 	file, err := os.OpenFile(fileName, os.O_CREATE&os.O_RDONLY, 0)
 	defer closeFile(file)
-	check(err)
+	util.CheckError(err, "failed to open todo file")
 
 	scanner := bufio.NewScanner(file)
 
@@ -32,13 +33,13 @@ func ReadTodoFile(fileName string) []TodoItem {
 func WriteTodoFile(fileName string, todoItems []TodoItem) {
 	file, err := os.Create(fileName)
 	defer closeFile(file)
-	check(err)
+	util.CheckError(err, "failed to open todo file")
 
 	writer := bufio.NewWriter(file)
 
 	for _, todoItem := range todoItems {
 		_, err := writer.WriteString(todoItem.String() + "\n")
-		check(err)
+		util.CheckError(err, "failed to write item to file")
 	}
 
 	writer.Flush()
@@ -46,12 +47,5 @@ func WriteTodoFile(fileName string, todoItems []TodoItem) {
 
 func closeFile(f *os.File) {
 	err := f.Close()
-	check(err)
-}
-
-func check(err error) {
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
+	util.CheckError(err, "failed to close file")
 }

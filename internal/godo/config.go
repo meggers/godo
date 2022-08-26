@@ -8,6 +8,8 @@ import (
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/file"
+
+	util "github.com/meggers/godo/internal"
 )
 
 type Config struct {
@@ -18,9 +20,7 @@ func NewConfig() *Config {
 	k := koanf.New(".")
 
 	wd, err := os.Getwd()
-	if err != nil {
-		log.Fatalf("failed to get current working directory")
-	}
+	util.CheckError(err, "failed to get current working directory")
 
 	devConfigPath := filepath.Join(wd, "configs/config.yaml")
 	if err := k.Load(file.Provider(devConfigPath), yaml.Parser()); err != nil {
@@ -28,9 +28,7 @@ func NewConfig() *Config {
 	}
 
 	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatalf("failed to determine home directory")
-	}
+	util.CheckError(err, "failed to determine home directory")
 
 	configFilePath := filepath.Join(homeDir, ".todo", "config.yaml")
 	if err := k.Load(file.Provider(configFilePath), yaml.Parser()); err != nil {
