@@ -1,0 +1,11 @@
+fix bug when todo list is empty
+add hotkey hints
+add ordering/sorting
+better test coverage
+fix duplication bug when editing existing item
+flesh out readme
+add and flesh out user guide
+flesh out developer guide
+set terminal title
+add indication of overflow
+support todo.txt spec https://github.com/todotxt/todo.txt/blob/master/README.md
