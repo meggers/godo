@@ -2,7 +2,6 @@ package godo
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
@@ -13,10 +12,7 @@ type Application struct {
 	View   *tview.Application
 }
 
-const commandList = "create,sort"
-
 func NewApplication(config Config) Application {
-	commands := strings.Split(commandList, ",")
 	itemStore := NewItemStore(config)
 
 	app := tview.NewApplication()
@@ -124,18 +120,6 @@ func NewApplication(config Config) Application {
 		}
 
 		return event
-	})
-
-	inputField.SetAutocompleteFunc(func(currentText string) (entries []string) {
-		if len(currentText) == 0 {
-			return
-		}
-		for _, word := range commands {
-			if strings.HasPrefix(strings.ToLower(word), strings.ToLower(currentText)) {
-				entries = append(entries, word)
-			}
-		}
-		return
 	})
 
 	for _, item := range itemStore.items {
