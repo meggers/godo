@@ -97,6 +97,11 @@ func NewApplication(config Config) Application {
 		return event
 	})
 
+	inputField.
+		SetPlaceholder("...").
+		SetPlaceholderStyle(tcell.StyleDefault.Background(tcell.ColorBlack)).
+		SetPlaceholderTextColor(tcell.ColorGray)
+
 	inputField.SetFieldBackgroundColor(tcell.ColorBlack)
 	inputField.SetDoneFunc(func(key tcell.Key) {
 		switch key {

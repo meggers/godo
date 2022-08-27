@@ -1,9 +1,11 @@
-2022-08-27 add ordering/sorting
 2022-08-27 better test coverage
 2022-08-27 fix duplication bug when editing existing item
 2022-08-27 add and flesh out user guide
 2022-08-27 flesh out developer guide
 2022-08-27 set terminal title
 2022-08-27 add indication of overflow
-2022-08-27 support todo.txt spec https://github.com/todotxt/todo.txt/blob/master/README.md
 2022-08-27 isolate ui and business logic
+2022-08-27 add filtering
+2022-08-27 add ordering
+2022-08-27 add sorting
+2022-08-27 add priority support
