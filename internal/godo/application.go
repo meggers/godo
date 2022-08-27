@@ -21,13 +21,16 @@ func NewApplication(config Config) Application {
 
 	app := tview.NewApplication()
 
-	inputField := tview.NewInputField().
-		SetLabel("> ").
-		SetFieldWidth(0)
+	titleView := tview.NewTextView()
+	titleView.
+		SetTextAlign(tview.AlignCenter).
+		SetTextColor(tcell.ColorGreen)
 
-	list := tview.NewList().
-		SetWrapAround(false).
-		SetSelectedFocusOnly(true)
+	fmt.Fprint(titleView, ` _____       _     
+|   __|___ _| |___ 
+|  |  | . | . | . |
+|_____|___|___|___|
+`)
 
 	hotkeyView := tview.NewTextView().
 		SetDynamicColors(true)
@@ -37,6 +40,14 @@ func NewApplication(config Config) Application {
 	fmt.Fprintln(hotkeyView, "[yellow](d)[white]   delete")
 	fmt.Fprintln(hotkeyView, "[yellow](n)[white]   jump to new")
 	fmt.Fprintln(hotkeyView, "[yellow](esc)[white] quit")
+
+	inputField := tview.NewInputField().
+		SetLabel("> ").
+		SetFieldWidth(0)
+
+	list := tview.NewList().
+		SetWrapAround(false).
+		SetSelectedFocusOnly(true)
 
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
@@ -72,13 +83,6 @@ func NewApplication(config Config) Application {
 
 		return event
 	})
-
-	grid := tview.NewGrid().
-		SetRows(0, 1).
-		SetBorders(true).
-		AddItem(list, 0, 0, 1, 5, 0, 0, false).
-		AddItem(hotkeyView, 0, 5, 1, 1, 0, 0, false).
-		AddItem(inputField, 1, 0, 1, 6, 0, 0, true)
 
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
@@ -137,6 +141,15 @@ func NewApplication(config Config) Application {
 	for _, item := range itemStore.items {
 		list.AddItem(item.String(), "", 0, nil)
 	}
+
+	grid := tview.NewGrid().
+		SetRows(5, 0, 1).
+		SetColumns(0, 20).
+		SetBorders(true).
+		AddItem(list, 0, 0, 2, 5, 0, 0, false).
+		AddItem(titleView, 0, 5, 1, 1, 5, 20, false).
+		AddItem(hotkeyView, 1, 5, 1, 1, 0, 0, false).
+		AddItem(inputField, 2, 0, 1, 6, 0, 0, true)
 
 	app.SetRoot(grid, true)
 
