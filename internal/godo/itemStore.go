@@ -35,6 +35,7 @@ func (itemStore *ItemStore) RemoveItem(s int) {
 func (itemStore *ItemStore) ArchiveItem(s int) {
 	item := itemStore.items[s]
 	item.Complete = true
+	item.CompletionDate = time.Now()
 
 	if itemStore.Config.EnableArchive {
 		archivePath := itemStore.getArchivePath()

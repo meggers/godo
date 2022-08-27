@@ -61,6 +61,10 @@ func NewTodoItem(line string) TodoItem {
 	descriptionTokens := tokens[descriptionStartIndex:]
 	item.Description = strings.Join(descriptionTokens, " ")
 
+	if item.CreationDate.IsZero() {
+		item.CreationDate = time.Now()
+	}
+
 	return item
 }
 
