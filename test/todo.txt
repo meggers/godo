@@ -9,3 +9,4 @@
 2022-08-27 add ordering
 2022-08-27 add sorting
 2022-08-27 add priority support
+2022-08-27 better formatting/highlighting in todo list
