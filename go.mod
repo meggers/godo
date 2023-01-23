@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/gdamore/tcell/v2 v2.5.3
-	github.com/knadh/koanf v1.4.3
+	github.com/knadh/koanf v1.5.0
 	github.com/rivo/tview v0.0.0-20220812085834-0e6b21a48e96
 )
 
@@ -20,5 +20,5 @@ require (
 	golang.org/x/sys v0.0.0-20220318055525-2edf467146b5 // indirect
 	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
